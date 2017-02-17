@@ -38,7 +38,7 @@ function tokenAjax() {
 
 var viewer;
 var options = {};
-var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dGVzdGluZy10dXRvcmlhbC1maWxlcy9VcmJhbkhvdXNlLTIwMTUucnZ0';
+var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bm9kZWpzLXR1dG9yaWFsLXZpZXdlci9VcmJhbkhvdXNlLTIwMTUucnZ0';
 var promise = tokenAjax();
 
 promise.success(function (data) {
