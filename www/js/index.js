@@ -21,7 +21,6 @@
 // Use this call to get back an object json of your token
 //
 /////////////////////////////////////////////////////////////////////////////////
-
 var tokenurl = window.location.protocol + '//' + window.location.host + '/api/token';
 function tokenAjax() {
       return $.ajax({
@@ -38,7 +37,8 @@ function tokenAjax() {
 
 var viewer;
 var options = {};
-var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bm9kZWpzLXR1dG9yaWFsLXZpZXdlci9VcmJhbkhvdXNlLTIwMTUucnZ0';
+var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0LzNkRmFjdG9yeS5kd2Y';
+//var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bm9kZWpzLXR1dG9yaWFsLXZpZXdlci9VcmJhbkhvdXNlLTIwMTUucnZ0';
 var promise = tokenAjax();
 
 promise.success(function (data) {
@@ -76,10 +76,14 @@ function onDocumentLoadSuccess(doc) {
   
   ///////////////USE ONLY ONE OPTION AT A TIME/////////////////////////
   /////////////////////// Headless Viewer ///////////////////////////// 
-  viewer = new Autodesk.Viewing.Viewer3D(viewerDiv);
+  //viewer = new Autodesk.Viewing.Viewer3D(viewerDiv);
   
   //////////////////Viewer with Autodesk Toolbar///////////////////////
-  // viewer = new Autodesk.Viewing.Private.GuiViewer3D(viewerDiv);
+  viewer = new Autodesk.Viewing.Private.GuiViewer3D(viewerDiv , {
+    extensions: ['Viewing.Extension.ModelTransformer']
+  });
+
+   
   //////////////////////////////////////////////////////////////////////
   viewer.start(svfUrl, modelOptions, onLoadModelSuccess, onLoadModelError);
 }
@@ -111,22 +115,59 @@ function onLoadModelError(viewerErrorCode) {
 }
 
 
+
 /////////////////////////////////////////////////////////////////////////////////
 //
 // Load Viewer Background Color Extension
 //
 /////////////////////////////////////////////////////////////////////////////////
 
-  // function loadChangeBackground (){
-  //        viewer.setBackgroundColor(255,255, 255, 255,255, 255);
-  // }
+  function changeBackground (){
+         viewer.setBackgroundColor(0, 59, 111, 255,255, 255);
+  }
 
- /////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
 //
 // Unload Viewer Background Color Extension
 //
 /////////////////////////////////////////////////////////////////////////////////
 
-  // function unloadChangeBackground (){
-  //        viewer.setBackgroundColor(169,169,169, 255,255, 255);
-  // }
+  function resetBackground (){     
+         viewer.setBackgroundColor(169,169,169, 255,255, 255);
+  }
+
+/////////////////////////////////////////////////////////////////////////////////
+//
+// Load Viewer Markup3D Extension
+//
+/////////////////////////////////////////////////////////////////////////////////
+// 3D Markup extension to display values of the selected objects in the model. 
+
+  function loadMarkup3D (){
+         viewer.loadExtension('Viewing.Extension.Markup3D');
+  }
+
+/////////////////////////////////////////////////////////////////////////////////
+//
+// Load Viewer Transform Extension
+//
+/////////////////////////////////////////////////////////////////////////////////
+// Transformation is allowed with this extension to move object selected in the XYZ
+// position or rotation in XYZ as well.
+
+  function loadTransform (){
+         viewer.loadExtension('Viewing.Extension.Transform');
+  }
+
+/////////////////////////////////////////////////////////////////////////////////
+//
+// Load Viewer Control Selector Extension
+//
+/////////////////////////////////////////////////////////////////////////////////
+// This extension allows you to remove certain extensions from the original toolbar 
+// provided to you.
+
+  function loadControlSelector(){
+         viewer.loadExtension('_Viewing.Extension.ControlSelector');
+  }
+
