@@ -37,8 +37,11 @@ function tokenAjax() {
 
 var viewer;
 var options = {};
+// Revit Fabric
 var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0LzNkRmFjdG9yeS5kd2Y';
-//var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bm9kZWpzLXR1dG9yaWFsLXZpZXdlci9VcmJhbkhvdXNlLTIwMTUucnZ0';
+
+//Cabinte
+//var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L0NhYmluZXQuemlw';
 var promise = tokenAjax();
 
 promise.success(function (data) {
