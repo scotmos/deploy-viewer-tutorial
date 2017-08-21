@@ -37,11 +37,8 @@ function tokenAjax() {
 
 var viewer;
 var options = {};
-// Revit Fabric
-var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0LzNkRmFjdG9yeS5kd2Y';
-
-//Cabinte
-//var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dmlld2VyLXJvY2tzLXJlYWN0L0NhYmluZXQuemlw';
+// Revit UrbanHouse
+var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6ZGVwbG95ZWQtc2FtcGxlLXZpZXdlcmxxY2dhaGNtenc4MTBuN282aTc0aWFwa3d1MHB4YXM3L1VyYmFuSG91c2UtMjAxNS5ydnQ';
 var promise = tokenAjax();
 
 promise.success(function (data) {
@@ -62,30 +59,27 @@ promise.success(function (data) {
 function onDocumentLoadSuccess(doc) {
 
  // A document contains references to 3D and 2D viewables.
-  var viewables = Autodesk.Viewing.Document.getSubItemsWithProperties(doc.getRootItem(), {'type':'geometry'}, true);
+  var viewables = Autodesk.Viewing.Document.getSubItemsWithProperties (doc.getRootItem (), { 'type': 'geometry', 'role': '3d' }, true) ;
+
+
   if (viewables.length === 0) {
-      console.error('Document contains no viewables.');
-      return;
+    console.error('Document contains no viewables.');
+    return;
   }
 
   // Choose any of the avialble viewables
-  var initialViewable = viewables[0];
+  var initialViewable = viewables[8];
   var svfUrl = doc.getViewablePath(initialViewable);
   var modelOptions = {
-      sharedPropertyDbPath: doc.getPropertyDbPath()
+    sharedPropertyDbPath: doc.getPropertyDbPath()
   };
-
   var viewerDiv = document.getElementById('viewerDiv');
-  
   ///////////////USE ONLY ONE OPTION AT A TIME/////////////////////////
   /////////////////////// Headless Viewer ///////////////////////////// 
   //viewer = new Autodesk.Viewing.Viewer3D(viewerDiv);
   
   //////////////////Viewer with Autodesk Toolbar///////////////////////
-  viewer = new Autodesk.Viewing.Private.GuiViewer3D(viewerDiv , {
-    extensions: ['Viewing.Extension.ModelTransformer']
-  });
-
+   viewer = new Autodesk.Viewing.Private.GuiViewer3D(viewerDiv);
    
   //////////////////////////////////////////////////////////////////////
   viewer.start(svfUrl, modelOptions, onLoadModelSuccess, onLoadModelError);
